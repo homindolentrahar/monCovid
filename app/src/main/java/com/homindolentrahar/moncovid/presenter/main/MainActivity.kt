@@ -1,7 +1,8 @@
-package com.homindolentrahar.moncovid
+package com.homindolentrahar.moncovid.presenter.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.homindolentrahar.moncovid.R
 
 class MainActivity : AppCompatActivity() {
 

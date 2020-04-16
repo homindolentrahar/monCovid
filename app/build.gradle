@@ -16,7 +16,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String","BASE_URL",'"https://covid19.mathdro.id/api/"')
+        buildConfigField("String","BASE_URL",'"https://indonesia-covid-19.mathdro.id/"')
     }
 
     buildTypes {
@@ -24,6 +24,19 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+
+    androidExtensions{
+        experimental = true
+    }
+
+    dataBinding{
+        enabled = true
+    }
+
+    compileOptions {
+        targetCompatibility = "8"
+        sourceCompatibility = "8"
     }
 
 }
