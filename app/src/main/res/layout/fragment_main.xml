@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipe_refresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/primaryDarker"
+        android:padding="@dimen/half_padding"
+        tools:context=".presenter.main.fragment.MainFragment">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_overview"
+            style="@style/CardItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/wrapper_overview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/half_padding">
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/chart_overview"
+                    android:layout_width="175dp"
+                    android:layout_height="175dp"
+                    app:layout_constraintBottom_toBottomOf="@id/wrap_overview_info"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/wrap_overview_info" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/wrap_overview_info"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/half_margin"
+                    android:paddingTop="@dimen/half_padding"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/chart_overview"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/tv_confirmed"
+                        style="@style/OverviewValue"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="5924" />
+
+                    <TextView
+                        android:id="@+id/text_confirmed"
+                        style="@style/OverviewTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/confirmed"
+                        android:textColor="@color/confirmed"
+                        app:layout_constraintStart_toStartOf="@id/tv_confirmed"
+                        app:layout_constraintTop_toBottomOf="@id/tv_confirmed" />
+
+                    <TextView
+                        android:id="@+id/tv_recovered"
+                        style="@style/OverviewValue"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/half_margin"
+                        app:layout_constraintTop_toBottomOf="@id/text_confirmed"
+                        tools:text="578" />
+
+                    <TextView
+                        android:id="@+id/text_recovered"
+                        style="@style/OverviewTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/recovered"
+                        android:textColor="@color/recovered"
+                        app:layout_constraintStart_toStartOf="@id/tv_recovered"
+                        app:layout_constraintTop_toBottomOf="@id/tv_recovered" />
+
+                    <TextView
+                        android:id="@+id/tv_deaths"
+                        style="@style/OverviewValue"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/half_margin"
+                        app:layout_constraintTop_toBottomOf="@id/text_recovered"
+                        tools:text="469" />
+
+                    <TextView
+                        android:id="@+id/text_deaths"
+                        style="@style/OverviewTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/deaths"
+                        android:textColor="@color/deaths"
+                        app:layout_constraintStart_toStartOf="@id/tv_deaths"
+                        app:layout_constraintTop_toBottomOf="@id/tv_deaths" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/tv_daily_data"
+            style="@style/ScreenTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin"
+            android:text="@string/daily_update"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/card_overview" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_list_daily"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/quarter_margin"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_daily_data"
+            tools:listitem="@layout/list_item_daily" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

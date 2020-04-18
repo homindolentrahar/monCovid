@@ -5,6 +5,7 @@ import com.homindolentrahar.moncovid.di.module.databaseModule
 import com.homindolentrahar.moncovid.di.module.networkModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
+import org.koin.dsl.module
 
 class BaseApplication : Application() {
     override fun onCreate() {

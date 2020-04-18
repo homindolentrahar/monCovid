@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/custom_bar_marker_background"
+    android:padding="@dimen/half_padding">
+
+    <TextView
+        android:id="@+id/tv_province"
+        style="@style/MarkerName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="DKI Jakarta" />
+
+    <TextView
+        android:id="@+id/text_confirmed"
+        style="@style/MarkerTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/half_margin"
+        android:text="@string/confirmed_with_colon"
+        android:textColor="@color/confirmed"
+        app:layout_constraintStart_toStartOf="@id/tv_province"
+        app:layout_constraintTop_toBottomOf="@id/tv_province" />
+
+    <TextView
+        android:id="@+id/tv_confirmed"
+        style="@style/MarkerValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/quarter_margin"
+        android:textColor="@color/confirmed"
+        app:layout_constraintBottom_toBottomOf="@id/text_confirmed"
+        app:layout_constraintStart_toEndOf="@id/text_confirmed"
+        app:layout_constraintTop_toTopOf="@id/text_confirmed"
+        tools:text="5192" />
+
+    <TextView
+        android:id="@+id/text_recovered"
+        style="@style/MarkerTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/recovered_with_colon"
+        android:textColor="@color/recovered"
+        app:layout_constraintStart_toStartOf="@id/text_confirmed"
+        app:layout_constraintTop_toBottomOf="@id/text_confirmed" />
+
+    <TextView
+        android:id="@+id/tv_recovered"
+        style="@style/MarkerValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/recovered"
+        app:layout_constraintBottom_toBottomOf="@id/text_recovered"
+        app:layout_constraintStart_toStartOf="@id/tv_confirmed"
+        app:layout_constraintTop_toTopOf="@id/text_recovered"
+        tools:text="546" />
+
+    <TextView
+        android:id="@+id/text_deaths"
+        style="@style/MarkerTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/deaths_with_colon"
+        android:textColor="@color/deaths"
+        app:layout_constraintStart_toStartOf="@id/text_recovered"
+        app:layout_constraintTop_toBottomOf="@id/text_recovered" />
+
+    <TextView
+        android:id="@+id/tv_deaths"
+        style="@style/MarkerValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/deaths"
+        app:layout_constraintBottom_toBottomOf="@id/text_deaths"
+        app:layout_constraintStart_toStartOf="@id/tv_recovered"
+        app:layout_constraintTop_toTopOf="@id/text_deaths"
+        tools:text="496" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

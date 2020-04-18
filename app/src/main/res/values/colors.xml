@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
+    <color name="colorPrimary">#4FC3F7</color>
+    <color name="colorPrimaryDark">#409FCA</color>
+    <color name="colorAccent">#81C784</color>
+    <color name="primaryDark">#1E2829</color>
+    <color name="primaryDarker">#131F20</color>
+    <color name="dark">#1E1E1E</color>
+    <color name="white">#FFFFFF</color>
+    <color name="darkGray">#969696</color>
+    <color name="confirmed">#FFB74D</color>
+    <color name="recovered">#81C784</color>
+    <color name="deaths">#FF8A65</color>
 </resources>

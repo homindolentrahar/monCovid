@@ -1,11 +1,104 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:statusBarColor">@color/primaryDarker</item>
+
+        <!--        Font Style-->
+        <item name="android:textViewStyle">@style/TextViewStyle</item>
+        <item name="android:buttonStyle">@style/ButtonStyle</item>
+        <item name="android:editTextStyle">@style/EditTextStyle</item>
+    </style>
+
+    <style name="TextViewStyle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/open_sans</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="ButtonStyle" parent="android:Widget.Holo.Button">
+        <item name="fontFamily">@font/open_sans</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="EditTextStyle" parent="android:Widget.EditText">
+        <item name="fontFamily">@font/open_sans</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <!--    Screen -->
+    <style name="ScreenTitle" parent="OverviewTitle" />
+
+    <style name="CardItem">
+        <item name="cardCornerRadius">@dimen/radius</item>
+        <item name="cardBackgroundColor">@color/primaryDark</item>
+        <item name="cardElevation">0dp</item>
+    </style>
+    <!--    Marker -->
+    <style name="MarkerName">
+        <item name="android:fontFamily">@font/open_sans_bold</item>
+    </style>
+
+    <style name="MarkerTitle">
+        <item name="android:fontFamily">@font/open_sans_semibold</item>
+    </style>
+
+    <style name="MarkerValue" parent="MarkerTitle" />
+    <!--    Overview-->
+    <style name="OverviewValue">
+        <item name="android:fontFamily">@font/open_sans</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="OverviewTitle">
+        <item name="android:fontFamily">@font/open_sans_semibold</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    <!--    Daily-->
+    <style name="ItemDailyDate">
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="ItemDailyTitle">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/open_sans_semibold</item>
+    </style>
+
+    <style name="ItemDailyValue" parent="ItemDailyTitle" />
+
+    <!--    Province-->
+    <style name="CardProvinceTitle">
+        <item name="android:fontFamily">@font/open_sans_semibold</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="CardProvinceSubtitle">
+        <item name="android:fontFamily">@font/open_sans</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/darkGray</item>
+    </style>
+
+    <style name="ItemProvinceName">
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontFamily">@font/open_sans_semibold</item>
+    </style>
+
+    <style name="ItemProvinceTitle" parent="ItemDailyTitle" />
+
+    <style name="ItemProvinceValue" parent="ItemDailyValue" />
+
+    <!--    Bottom Nav-->
+    <style name="BottomNav">
+        <item name="android:background">@drawable/bottom_nav_background</item>
+        <item name="itemTextColor">@color/bottom_nav_selector</item>
+        <item name="itemIconTint">@color/bottom_nav_selector</item>
+        <item name="labelVisibilityMode">selected</item>
+        <item name="android:elevation">0dp</item>
     </style>
 
 </resources>
