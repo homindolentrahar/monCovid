@@ -6,57 +6,75 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/province_wrapper"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/primaryDarker"
-        android:padding="@dimen/half_padding"
-        tools:context=".presenter.main.fragment.ProvinceFragment">
+        android:layout_height="match_parent">
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/card_chart_province"
-            style="@style/CardItem"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent"
+            android:background="@color/primaryDarker"
+            android:padding="@dimen/half_padding"
+            tools:context=".presenter.main.fragment.ProvinceFragment">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/wrapper_chart_province"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_chart_province"
+                style="@style/CardItem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/half_padding">
+                app:layout_constraintTop_toTopOf="parent">
 
-                <com.github.mikephil.charting.charts.BarChart
-                    android:id="@+id/chart_province"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/wrapper_chart_province"
                     android:layout_width="match_parent"
-                    android:layout_height="230dp"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/half_padding">
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <com.github.mikephil.charting.charts.BarChart
+                        android:id="@+id/chart_province"
+                        android:layout_width="match_parent"
+                        android:layout_height="230dp"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-        </com.google.android.material.card.MaterialCardView>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/text_province_data"
-            style="@style/ScreenTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin"
-            android:text="@string/province_data"
-            android:textColor="@color/colorPrimary"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/card_chart_province" />
+            </com.google.android.material.card.MaterialCardView>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_list_province"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/quarter_margin"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_province_data"
-            tools:listitem="@layout/list_item_province" />
+            <TextView
+                android:id="@+id/text_province_data"
+                style="@style/ScreenTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin"
+                android:text="@string/province_data"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/card_chart_province" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_list_province"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/quarter_margin"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_province_data"
+                tools:listitem="@layout/list_item_province" />
+
+            <com.github.ybq.android.spinkit.SpinKitView
+                android:id="@+id/progress_bar"
+                style="@style/ProgressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

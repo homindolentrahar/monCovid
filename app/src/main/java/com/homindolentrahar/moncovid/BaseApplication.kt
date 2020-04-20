@@ -1,11 +1,12 @@
 package com.homindolentrahar.moncovid
 
 import android.app.Application
+import com.homindolentrahar.moncovid.di.module.appModule
 import com.homindolentrahar.moncovid.di.module.databaseModule
 import com.homindolentrahar.moncovid.di.module.networkModule
+import com.homindolentrahar.moncovid.di.module.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
-import org.koin.dsl.module
 
 class BaseApplication : Application() {
     override fun onCreate() {
@@ -14,7 +15,7 @@ class BaseApplication : Application() {
         startKoin {
             androidContext(this@BaseApplication)
             modules(
-                listOf(networkModule, databaseModule)
+                listOf(appModule, networkModule, databaseModule, viewModelModule)
             )
         }
     }

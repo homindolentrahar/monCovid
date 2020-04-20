@@ -1,17 +1,21 @@
 package com.homindolentrahar.moncovid.domain.usescase
 
-import com.homindolentrahar.moncovid.model.pojo.CovidDailyResult
-import com.homindolentrahar.moncovid.model.pojo.CovidOverview
-import com.homindolentrahar.moncovid.model.pojo.CovidProvinceResult
-import com.homindolentrahar.moncovid.model.repository.Repository
+import com.homindolentrahar.moncovid.data.pojo.*
+import com.homindolentrahar.moncovid.data.repository.Repository
 import io.reactivex.Completable
 import io.reactivex.Observable
+import io.reactivex.functions.BiFunction
+import io.reactivex.schedulers.Schedulers
 
 class UsesCaseImpl(private val repository: Repository) : UsesCase {
-    override fun getCovidOverview(): Observable<CovidOverview> = repository.getCovidOverview()
-
-    override fun getCovidDaily(): Observable<List<CovidDailyResult>> =
-        repository.getCovidDaily().map { response -> response.data }
+    override fun getCovidMainData(): Observable<CovidMainData> =
+        Observable.zip(
+            repository.getCovidOverview().subscribeOn(Schedulers.io()),
+            repository.getCovidDaily().subscribeOn(Schedulers.io()),
+            BiFunction<CovidOverview, CovidDailyResponse, CovidMainData> { overview, daily ->
+                val list = daily.data.sortedByDescending { it.hariKe }
+                CovidMainData(overview, list)
+            })
 
     override fun getCovidProvince(): Observable<List<CovidProvinceResult>> =
         repository.getCovidProvince().map { response -> response.data }

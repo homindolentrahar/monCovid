@@ -37,6 +37,11 @@
         <item name="cardBackgroundColor">@color/primaryDark</item>
         <item name="cardElevation">0dp</item>
     </style>
+
+    <style name="ProgressBarStyle">
+        <item name="SpinKit_Style">Circle</item>
+        <item name="SpinKit_Color">@color/colorPrimary</item>
+    </style>
     <!--    Marker -->
     <style name="MarkerName">
         <item name="android:fontFamily">@font/open_sans_bold</item>
@@ -49,15 +54,15 @@
     <style name="MarkerValue" parent="MarkerTitle" />
     <!--    Overview-->
     <style name="OverviewValue">
-        <item name="android:fontFamily">@font/open_sans</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">@font/open_sans_semibold</item>
+        <item name="android:textSize">18sp</item>
         <item name="android:maxLines">1</item>
         <item name="android:ellipsize">end</item>
     </style>
 
     <style name="OverviewTitle">
         <item name="android:fontFamily">@font/open_sans_semibold</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">14sp</item>
     </style>
     <!--    Daily-->
     <style name="ItemDailyDate">
@@ -70,6 +75,10 @@
     </style>
 
     <style name="ItemDailyValue" parent="ItemDailyTitle" />
+
+    <style name="ItemDailyProgress">
+        <item name="android:textSize">12sp</item>
+    </style>
 
     <!--    Province-->
     <style name="CardProvinceTitle">

@@ -1,25 +1,36 @@
 package com.homindolentrahar.moncovid.presenter.main.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
+import com.google.android.material.snackbar.Snackbar
 import com.homindolentrahar.moncovid.R
-import com.homindolentrahar.moncovid.model.pojo.CovidProvinceResult
+import com.homindolentrahar.moncovid.data.pojo.CovidProvinceResult
+import com.homindolentrahar.moncovid.presenter.main.adapter.CovidProvinceAdapter
+import com.homindolentrahar.moncovid.presenter.main.fragment.viewmodel.ProvinceViewModel
+import com.homindolentrahar.moncovid.util.Constant
 import com.homindolentrahar.moncovid.util.CustomBarMarkerView
+import com.homindolentrahar.moncovid.util.State
 import kotlinx.android.synthetic.main.fragment_province.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
  * A simple [Fragment] subclass.
  */
 class ProvinceFragment : Fragment() {
 
+    val provinceViewModel by viewModel<ProvinceViewModel>()
     private val entries = mutableListOf<BarEntry>()
+    private lateinit var snackbar: Snackbar
+    private lateinit var adapter: CovidProvinceAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,67 +42,118 @@ class ProvinceFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+//        Snackbar init
+        snackbar = Snackbar.make(
+            province_wrapper,
+            getString(R.string.warning_internet_unavailable),
+            Snackbar.LENGTH_INDEFINITE
+        )
+//        RecyclerView setup
+        initRecyclerView()
+//        Data setup
+        initData()
 //        Refresh Data
         refresh()
-//        Chart setup
-        initChart()
+    }
+
+    override fun onResume() {
+        super.onResume()
+//        Check Internet connection
+        checkInternetConnection()
+    }
+
+    @SuppressLint("CheckResult")
+    private fun checkInternetConnection() {
+        Constant.isInternetAvailable()
+            .subscribe { isConnected ->
+                if (!isConnected) {
+                    snackbar.show()
+                } else {
+                    snackbar.dismiss()
+                }
+            }
+    }
+
+    private fun initRecyclerView() {
+        adapter = CovidProvinceAdapter()
+
+        rv_list_province.adapter = adapter
+    }
+
+    private fun initData() {
+        provinceViewModel.getCovidProvince()
+        provinceViewModel.covidProvince.observe(viewLifecycleOwner, Observer { dataState ->
+            when (dataState.state) {
+                State.LOADING -> {
+                    progress_bar.visibility = View.VISIBLE
+                }
+                State.SUCCESS -> {
+                    val chartList = dataState.data?.take(5)
+                    initChart(chartList!!)
+
+                    val list = dataState.data
+                    adapter.submitList(list)
+
+                    swipe_refresh.isRefreshing = false
+                    progress_bar.visibility = View.GONE
+                }
+                State.FAILED -> {
+                    Log.d(ProvinceFragment::class.java.simpleName, dataState.message.toString())
+
+                    swipe_refresh.isRefreshing = false
+                    progress_bar.visibility = View.GONE
+                }
+            }
+        })
     }
 
     private fun refresh() {
         swipe_refresh.setOnRefreshListener {
-            Toast.makeText(requireContext(), "Refreshing", Toast.LENGTH_SHORT).show()
-            swipe_refresh.isRefreshing = false
+            initData()
+            checkInternetConnection()
         }
     }
 
-    private fun initChart() {
-        entries.add(
-            BarEntry(
-                0f,
-                floatArrayOf(345f, 124f, 90f),
-                CovidProvinceResult(1, "Jakarta", 345, 124, 90)
+    private fun initChart(listData: List<CovidProvinceResult>) {
+        entries.clear()
+        var starter = 0f
+        for (data in listData) {
+            entries.add(
+                BarEntry(
+                    starter,
+                    floatArrayOf(
+                        data.positif.toFloat(),
+                        data.sembuh.toFloat(),
+                        data.meninggal.toFloat()
+                    ),
+                    data
+                )
             )
-        )
-        entries.add(
-            BarEntry(
-                1f,
-                floatArrayOf(460f, 120f, 80f),
-                CovidProvinceResult(2, "Jawa Barat", 460, 120, 80)
-            )
-        )
-        entries.add(
-            BarEntry(
-                2f,
-                floatArrayOf(189f, 115f, 50f),
-                CovidProvinceResult(3, "Jawa Tengah", 189, 115, 50)
-            )
-        )
+            starter++
+        }
 
-        val set = BarDataSet(entries, "")
-        val data = BarData(set)
-        val legend = chart_province.legend
+        val setOfData = BarDataSet(entries, "")
+        val chartData = BarData(setOfData)
         val yAxis = chart_province.axisLeft
         val marker = CustomBarMarkerView(requireContext(), R.layout.custom_bar_marker)
 
-        set.setDrawValues(false)
-        set.setColors(
+        setOfData.stackLabels = arrayOf("Confirmed", "Recovered", "Deaths")
+        setOfData.colors = listOf(
             requireContext().getColor(R.color.confirmed),
             requireContext().getColor(R.color.recovered),
             requireContext().getColor(R.color.deaths)
         )
-        set.stackLabels = arrayOf("Confirmed", "Recovered", "Deaths")
-        data.barWidth = 0.5f
-        legend.textColor = requireContext().getColor(R.color.white)
-        yAxis.mAxisMinimum = 0.0f
+        chartData.barWidth = 0.5f
         yAxis.textColor = requireContext().getColor(R.color.white)
 
-        chart_province.data = data
+        chart_province.data = chartData
         chart_province.marker = marker
-        chart_province.animateY(700)
-        chart_province.setFitBars(true)
-        chart_province.setVisibleXRangeMaximum(5f)
+        chart_province.description.isEnabled = false
+        chart_province.legend.textColor = requireContext().getColor(R.color.white)
         chart_province.setDrawValueAboveBar(false)
+        chart_province.setFitBars(true)
+        chart_province.animateY(700)
+        chart_province.setMaxVisibleValueCount(5)
         chart_province.invalidate()
-
     }
 }

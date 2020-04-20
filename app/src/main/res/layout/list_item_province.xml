@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    <data>
+
+        <variable
+            name="item"
+            type="com.homindolentrahar.moncovid.data.pojo.CovidProvinceResult" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/card_item_province"
         style="@style/CardItem"
         android:layout_width="match_parent"
@@ -27,6 +35,7 @@
                     android:id="@+id/img_icon_location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@string/province_data"
                     android:src="@drawable/ic_location_color"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -50,6 +59,7 @@
                     style="@style/ItemProvinceName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@{item.provinsi}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="DKI Jakarta" />
@@ -71,6 +81,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/quarter_margin"
+                    android:text="@{String.valueOf(item.positif)}"
                     android:textColor="@color/confirmed"
                     app:layout_constraintBottom_toBottomOf="@id/text_confirmed"
                     app:layout_constraintStart_toEndOf="@id/text_confirmed"
@@ -92,6 +103,7 @@
                     style="@style/ItemProvinceValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@{String.valueOf(item.sembuh)}"
                     android:textColor="@color/recovered"
                     app:layout_constraintBottom_toBottomOf="@id/text_recovered"
                     app:layout_constraintStart_toStartOf="@id/tv_confirmed"
@@ -113,6 +125,7 @@
                     style="@style/ItemProvinceValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@{String.valueOf(item.meninggal)}"
                     android:textColor="@color/deaths"
                     app:layout_constraintBottom_toBottomOf="@id/text_deaths"
                     app:layout_constraintStart_toStartOf="@id/tv_recovered"

@@ -1,8 +1,8 @@
-package com.homindolentrahar.moncovid.model.repository
+package com.homindolentrahar.moncovid.data.repository
 
-import com.homindolentrahar.moncovid.model.database.CacheDao
-import com.homindolentrahar.moncovid.model.pojo.*
-import com.homindolentrahar.moncovid.model.remote.APIService
+import com.homindolentrahar.moncovid.data.database.CacheDao
+import com.homindolentrahar.moncovid.data.pojo.*
+import com.homindolentrahar.moncovid.data.remote.APIService
 import io.reactivex.Completable
 import io.reactivex.Observable
 

@@ -1,6 +1,6 @@
-package com.homindolentrahar.moncovid.model.repository
+package com.homindolentrahar.moncovid.data.repository
 
-import com.homindolentrahar.moncovid.model.pojo.*
+import com.homindolentrahar.moncovid.data.pojo.*
 import io.reactivex.Completable
 import io.reactivex.Observable
 

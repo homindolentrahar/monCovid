@@ -1,9 +1,9 @@
-package com.homindolentrahar.moncovid.model.database
+package com.homindolentrahar.moncovid.data.database
 
 import androidx.room.*
-import com.homindolentrahar.moncovid.model.pojo.CovidDailyResult
-import com.homindolentrahar.moncovid.model.pojo.CovidOverview
-import com.homindolentrahar.moncovid.model.pojo.CovidProvinceResult
+import com.homindolentrahar.moncovid.data.pojo.CovidDailyResult
+import com.homindolentrahar.moncovid.data.pojo.CovidOverview
+import com.homindolentrahar.moncovid.data.pojo.CovidProvinceResult
 import io.reactivex.Completable
 import io.reactivex.Observable
 

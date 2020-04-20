@@ -5,7 +5,7 @@ import com.github.mikephil.charting.components.MarkerView
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.utils.MPPointF
-import com.homindolentrahar.moncovid.model.pojo.CovidProvinceResult
+import com.homindolentrahar.moncovid.data.pojo.CovidProvinceResult
 import kotlinx.android.synthetic.main.custom_bar_marker.view.*
 
 class CustomBarMarkerView(context: Context, layoutRes: Int) : MarkerView(context, layoutRes) {

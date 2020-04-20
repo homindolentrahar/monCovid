@@ -1,4 +1,4 @@
-package com.homindolentrahar.moncovid.model.pojo
+package com.homindolentrahar.moncovid.data.pojo
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -8,7 +8,7 @@ import com.homindolentrahar.moncovid.util.Constant
 @Entity(tableName = Constant.OVERVIEW_TABLE)
 data class CovidOverview(
     @PrimaryKey
-    val id:Int = 0,
+    val id: Int = 0,
     @SerializedName("jumlahKasus")
     val kasus: Int,
     @SerializedName("meninggal")
@@ -63,4 +63,9 @@ data class CovidProvinceResult(
     val sembuh: Int,
     @SerializedName("kasusMeni")
     val meninggal: Int
+)
+
+data class CovidMainData(
+    val overview: CovidOverview,
+    val daily: List<CovidDailyResult>
 )

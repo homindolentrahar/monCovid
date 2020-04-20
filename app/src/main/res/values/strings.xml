@@ -17,4 +17,5 @@
     <string name="all_values_are_total_number">All values are total number</string>
     <string name="overview">Overview</string>
     <string name="province">Province</string>
+    <string name="warning_internet_unavailable">Internet is unavailable !</string>
 </resources>

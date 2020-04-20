@@ -28,6 +28,7 @@
                     android:id="@+id/img_icon_timeline"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@string/daily_update"
                     android:src="@drawable/ic_timeline"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -56,27 +57,6 @@
                     tools:text="25 Jan, 2020  (Day 15)" />
 
                 <TextView
-                    android:id="@+id/text_new_cases"
-                    style="@style/ItemDailyTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/quarter_margin"
-                    android:text="@string/new_cases_with_colon"
-                    android:textColor="@color/colorPrimary"
-                    app:layout_constraintEnd_toStartOf="@id/tv_new_cases"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tv_new_cases"
-                    style="@style/ItemDailyValue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimary"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="234" />
-
-                <TextView
                     android:id="@+id/text_confirmed"
                     style="@style/ItemDailyTitle"
                     android:layout_width="wrap_content"
@@ -100,6 +80,18 @@
                     tools:text="5192" />
 
                 <TextView
+                    android:id="@+id/tv_confirmed_progress"
+                    style="@style/ItemDailyProgress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin"
+                    android:textColor="@color/confirmed"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_confirmed"
+                    app:layout_constraintStart_toEndOf="@id/tv_confirmed"
+                    app:layout_constraintTop_toTopOf="@id/tv_confirmed"
+                    tools:text="+45" />
+
+                <TextView
                     android:id="@+id/text_recovered"
                     style="@style/ItemDailyTitle"
                     android:layout_width="wrap_content"
@@ -121,6 +113,17 @@
                     tools:text="546" />
 
                 <TextView
+                    android:id="@+id/tv_recovered_progress"
+                    style="@style/ItemDailyProgress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/recovered"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_recovered"
+                    app:layout_constraintStart_toStartOf="@id/tv_confirmed_progress"
+                    app:layout_constraintTop_toTopOf="@id/tv_recovered"
+                    tools:text="+34" />
+
+                <TextView
                     android:id="@+id/text_deaths"
                     style="@style/ItemDailyTitle"
                     android:layout_width="wrap_content"
@@ -140,6 +143,17 @@
                     app:layout_constraintStart_toStartOf="@id/tv_recovered"
                     app:layout_constraintTop_toTopOf="@id/text_deaths"
                     tools:text="496" />
+
+                <TextView
+                    android:id="@+id/tv_deaths_progress"
+                    style="@style/ItemDailyProgress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/deaths"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_deaths"
+                    app:layout_constraintStart_toStartOf="@id/tv_recovered_progress"
+                    app:layout_constraintTop_toTopOf="@id/tv_deaths"
+                    tools:text="+23" />
 
                 <TextView
                     android:id="@+id/text_description"
