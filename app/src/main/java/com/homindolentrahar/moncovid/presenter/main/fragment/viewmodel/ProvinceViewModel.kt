@@ -8,7 +8,6 @@ import com.homindolentrahar.moncovid.data.pojo.CovidProvinceResult
 import com.homindolentrahar.moncovid.domain.usescase.UsesCase
 import com.homindolentrahar.moncovid.util.DataState
 import io.reactivex.Scheduler
-import io.reactivex.disposables.CompositeDisposable
 
 class ProvinceViewModel(
     private val usesCase: UsesCase,
@@ -22,7 +21,7 @@ class ProvinceViewModel(
 
     @SuppressLint("CheckResult")
     fun getCovidProvince() {
-        usesCase.getCovidProvince()
+        usesCase.getCovidProvinceData()
             .subscribeOn(subscriber)
             .observeOn(observer)
             .doOnSubscribe { _covidProvince.value = DataState.Loading() }

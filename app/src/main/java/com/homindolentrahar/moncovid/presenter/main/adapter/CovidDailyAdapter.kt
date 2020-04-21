@@ -30,23 +30,17 @@ class CovidDailyAdapter :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: CovidDailyResult) {
             val date = "${Constant.getDateFromTimestamp(item.tanggal)}  (Day ${item.hariKe})"
+            val progressConfirmed = "+" + item.kasusBaruPerHari.toString()
+            val progressRecovered = "+" + item.sembuhPerHari.toString()
+            val progressDeaths = "+" + item.meninggalPerHari.toString()
+
             binding.tvDate.text = date
             binding.tvConfirmed.text = item.kasusKumulatif.toString()
             binding.tvRecovered.text = item.sembuh.toString()
             binding.tvDeaths.text = item.meninggal.toString()
-
-            if (item.kasusBaruPerHari > 0) {
-                val progress = "+" + item.kasusBaruPerHari.toString()
-                binding.tvConfirmedProgress.text = progress
-            }
-            if (item.sembuhPerHari > 0) {
-                val progress = "+" + item.sembuhPerHari.toString()
-                binding.tvRecoveredProgress.text = progress
-            }
-            if (item.meninggalPerHari > 0) {
-                val progress = "+" + item.meninggalPerHari.toString()
-                binding.tvDeathsProgress.text = progress
-            }
+            binding.tvConfirmedProgress.text = progressConfirmed
+            binding.tvRecoveredProgress.text = progressRecovered
+            binding.tvDeathsProgress.text = progressDeaths
         }
     }
 

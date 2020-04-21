@@ -20,7 +20,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 object Constant {
-    const val OVERVIEW_TABLE = "overview_table"
     const val DAILY_TABLE = "daily_table"
     const val PROVINCE_TABLE = "province_table"
     const val DB_NAME = "covid.db"
@@ -73,47 +72,5 @@ object Constant {
         animator.addUpdateListener { textView.text = it.animatedValue.toString() }
         animator.duration = 700
         animator.start()
-    }
-
-    fun getNavBarSize(context: Context): Point {
-        val appUsableSize = getAppUsableScreen(context)
-        val realScreenSize = getRealScreenSize(context)
-
-//        NavBar in the right
-        if (appUsableSize.x < realScreenSize.x) {
-            return Point(realScreenSize.x - appUsableSize.x, appUsableSize.y)
-        }
-//        NavBar in the bottom
-        if (appUsableSize.y < realScreenSize.y) {
-            return Point(appUsableSize.x, realScreenSize.y - appUsableSize.y)
-        }
-//        No NavBar present
-        return Point()
-    }
-
-    private fun getAppUsableScreen(context: Context): Point {
-        val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-        val display = windowManager.defaultDisplay
-        val size = Point()
-        display.getSize(size)
-        return size
-    }
-
-    private fun getRealScreenSize(context: Context): Point {
-        val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-        val display = windowManager.defaultDisplay
-        val size = Point()
-
-        if (Build.VERSION.SDK_INT >= 17) {
-            display.getRealSize(size)
-        } else if (Build.VERSION.SDK_INT >= 14) {
-            try {
-                size.x = Display::class.java.getMethod("getRawWidth").invoke(display) as Int
-                size.y = Display::class.java.getMethod("getRawHeight").invoke(display) as Int
-            } catch (e: IllegalAccessException) {
-
-            }
-        }
-        return size
     }
 }

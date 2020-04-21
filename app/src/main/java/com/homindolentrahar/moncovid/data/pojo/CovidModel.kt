@@ -5,20 +5,6 @@ import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import com.homindolentrahar.moncovid.util.Constant
 
-@Entity(tableName = Constant.OVERVIEW_TABLE)
-data class CovidOverview(
-    @PrimaryKey
-    val id: Int = 0,
-    @SerializedName("jumlahKasus")
-    val kasus: Int,
-    @SerializedName("meninggal")
-    val meninggal: Int,
-    @SerializedName("sembuh")
-    val sembuh: Int,
-    @SerializedName("perawatan")
-    val dirawat: Int
-)
-
 data class CovidDailyResponse(
     @SerializedName("data")
     val data: List<CovidDailyResult>
@@ -63,9 +49,4 @@ data class CovidProvinceResult(
     val sembuh: Int,
     @SerializedName("kasusMeni")
     val meninggal: Int
-)
-
-data class CovidMainData(
-    val overview: CovidOverview,
-    val daily: List<CovidDailyResult>
 )

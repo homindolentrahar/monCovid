@@ -41,11 +41,7 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        Snackbar init
-        snackbar = Snackbar.make(
-            main_wrapper,
-            getString(R.string.warning_internet_unavailable),
-            Snackbar.LENGTH_INDEFINITE
-        )
+        initSnackbar()
 //        RecyclerView setup
         initRecyclerView()
 //        Data Setup
@@ -58,6 +54,16 @@ class MainFragment : Fragment() {
         super.onResume()
 //        Check Internet connection
         checkInternetConnection()
+    }
+
+    private fun initSnackbar() {
+        snackbar = Snackbar.make(
+            main_wrapper,
+            getString(R.string.warning_internet_unavailable),
+            Snackbar.LENGTH_INDEFINITE
+        )
+        snackbar.setBackgroundTint(requireContext().getColor(R.color.danger))
+        snackbar.setTextColor(requireContext().getColor(R.color.white))
     }
 
     @SuppressLint("CheckResult")
@@ -80,12 +86,24 @@ class MainFragment : Fragment() {
                     progress_bar.visibility = View.VISIBLE
                 }
                 State.SUCCESS -> {
-                    val confirmed = dataState.data?.overview?.kasus
-                    val recovered = dataState.data?.overview?.sembuh
-                    val deaths = dataState.data?.overview?.meninggal
+                    val confirmed = if (dataState.data?.get(0)?.kasusKumulatif == 0) {
+                        dataState.data[1].kasusKumulatif
+                    } else {
+                        dataState.data?.get(0)?.kasusKumulatif
+                    }
+                    val recovered = if (dataState.data?.get(0)?.sembuh == 0) {
+                        dataState.data[1].sembuh
+                    } else {
+                        dataState.data?.get(0)?.sembuh
+                    }
+                    val deaths = if (dataState.data?.get(0)?.meninggal == 0) {
+                        dataState.data[1].meninggal
+                    } else {
+                        dataState.data?.get(0)?.meninggal
+                    }
                     initChart(confirmed!!, recovered!!, deaths!!)
 
-                    val list = dataState.data.daily
+                    val list = dataState.data
                     adapter.submitList(list)
 
                     swipe_refresh.isRefreshing = false

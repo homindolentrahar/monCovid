@@ -1,35 +1,51 @@
 package com.homindolentrahar.moncovid.domain.usescase
 
-import com.homindolentrahar.moncovid.data.pojo.*
+import android.annotation.SuppressLint
+import com.homindolentrahar.moncovid.data.pojo.CovidDailyResult
+import com.homindolentrahar.moncovid.data.pojo.CovidProvinceResult
 import com.homindolentrahar.moncovid.data.repository.Repository
-import io.reactivex.Completable
 import io.reactivex.Observable
-import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 
 class UsesCaseImpl(private val repository: Repository) : UsesCase {
-    override fun getCovidMainData(): Observable<CovidMainData> =
-        Observable.zip(
-            repository.getCovidOverview().subscribeOn(Schedulers.io()),
-            repository.getCovidDaily().subscribeOn(Schedulers.io()),
-            BiFunction<CovidOverview, CovidDailyResponse, CovidMainData> { overview, daily ->
-                val list = daily.data.sortedByDescending { it.hariKe }
-                CovidMainData(overview, list)
-            })
 
-    override fun getCovidProvince(): Observable<List<CovidProvinceResult>> =
-        repository.getCovidProvince().map { response -> response.data }
+    override fun getCovidMainData(): Observable<List<CovidDailyResult>> {
+        return repository.getCachedDaily()
+            .flatMap { list ->
+                return@flatMap if (list.isEmpty()) {
+                    repository.getCovidDaily().map { it.data }
+                        .subscribeOn(Schedulers.io())
+                        .doOnNext { repository.cacheDaily(it) }
+                } else {
+                    repository.getCachedDaily()
+                }
+            }
+    }
 
-    override fun getCachedOverview(): Observable<CovidOverview> = repository.getCachedOverview()
+    override fun getCovidProvinceData(): Observable<List<CovidProvinceResult>> {
+        return repository.getCachedProvince()
+            .flatMap { list ->
+                return@flatMap if (list.isEmpty()) {
+                    repository.getCovidProvince().map { it.data }
+                        .subscribeOn(Schedulers.io())
+                        .doOnNext { list -> repository.cacheProvince(list) }
+                } else {
+                    repository.getCachedProvince()
+                }
+            }
+    }
 
-    override fun getCachedDaily(): Observable<List<CovidDailyResult>> = repository.getCachedDaily()
+    @SuppressLint("CheckResult")
+    override fun cacheCovidMainData() {
+        repository.getCovidDaily().map { it.data }
+            .subscribeOn(Schedulers.io())
+            .subscribe { list -> repository.cacheDaily(list) }
+    }
 
-    override fun getCachedProvince(): Observable<List<CovidProvinceResult>> =
-        repository.getCachedProvince()
-
-    override fun cacheOverview(item: CovidOverview): Completable = repository.cacheOverview(item)
-
-    override fun cacheDaily(items: List<CovidDailyResult>) = repository.cacheDaily(items)
-
-    override fun cacheProvince(items: List<CovidProvinceResult>) = repository.cacheProvince(items)
+    @SuppressLint("CheckResult")
+    override fun cacheCovidProvinceData() {
+        repository.getCovidProvince().map { it.data }
+            .subscribeOn(Schedulers.io())
+            .subscribe { list -> repository.cacheProvince(list) }
+    }
 }

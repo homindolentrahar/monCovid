@@ -43,11 +43,7 @@ class ProvinceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        Snackbar init
-        snackbar = Snackbar.make(
-            province_wrapper,
-            getString(R.string.warning_internet_unavailable),
-            Snackbar.LENGTH_INDEFINITE
-        )
+        initSnackbar()
 //        RecyclerView setup
         initRecyclerView()
 //        Data setup
@@ -60,6 +56,16 @@ class ProvinceFragment : Fragment() {
         super.onResume()
 //        Check Internet connection
         checkInternetConnection()
+    }
+
+    private fun initSnackbar() {
+        snackbar = Snackbar.make(
+            province_wrapper,
+            getString(R.string.warning_internet_unavailable),
+            Snackbar.LENGTH_INDEFINITE
+        )
+        snackbar.setBackgroundTint(requireContext().getColor(R.color.danger))
+        snackbar.setTextColor(requireContext().getColor(R.color.white))
     }
 
     @SuppressLint("CheckResult")
