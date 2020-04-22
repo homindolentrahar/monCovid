@@ -1,7 +1,10 @@
 package com.homindolentrahar.moncovid.data.repository
 
 import com.homindolentrahar.moncovid.data.database.CacheDao
-import com.homindolentrahar.moncovid.data.pojo.*
+import com.homindolentrahar.moncovid.data.pojo.CovidDailyResponse
+import com.homindolentrahar.moncovid.data.pojo.CovidDailyResult
+import com.homindolentrahar.moncovid.data.pojo.CovidProvinceResponse
+import com.homindolentrahar.moncovid.data.pojo.CovidProvinceResult
 import com.homindolentrahar.moncovid.data.remote.APIService
 import io.reactivex.Observable
 

@@ -86,24 +86,24 @@ class MainFragment : Fragment() {
                     progress_bar.visibility = View.VISIBLE
                 }
                 State.SUCCESS -> {
-                    val confirmed = if (dataState.data?.get(0)?.kasusKumulatif == 0) {
-                        dataState.data[1].kasusKumulatif
+                    val list = dataState.data
+                    val confirmed = if (list?.get(0)?.kasusKumulatif == 0) {
+                        list[1].kasusKumulatif
                     } else {
-                        dataState.data?.get(0)?.kasusKumulatif
+                        list?.get(0)?.kasusKumulatif
                     }
-                    val recovered = if (dataState.data?.get(0)?.sembuh == 0) {
-                        dataState.data[1].sembuh
+                    val recovered = if (list?.get(0)?.sembuh == 0) {
+                        list[1].sembuh
                     } else {
-                        dataState.data?.get(0)?.sembuh
+                        list?.get(0)?.sembuh
                     }
-                    val deaths = if (dataState.data?.get(0)?.meninggal == 0) {
-                        dataState.data[1].meninggal
+                    val deaths = if (list?.get(0)?.meninggal == 0) {
+                        list[1].meninggal
                     } else {
-                        dataState.data?.get(0)?.meninggal
+                        list?.get(0)?.meninggal
                     }
                     initChart(confirmed!!, recovered!!, deaths!!)
 
-                    val list = dataState.data
                     adapter.submitList(list)
 
                     swipe_refresh.isRefreshing = false
@@ -136,17 +136,17 @@ class MainFragment : Fragment() {
         entries.add(PieEntry(recoveredChart, "Recovered"))
         entries.add(PieEntry(deathsChart, "Deaths"))
 
-        val set = PieDataSet(entries, "Overview")
-        val data = PieData(set)
+        val setOfData = PieDataSet(entries, "Overview")
+        val chartData = PieData(setOfData)
 
-        set.setDrawValues(false)
-        set.setColors(
+        setOfData.setDrawValues(false)
+        setOfData.setColors(
             requireContext().getColor(R.color.confirmed),
             requireContext().getColor(R.color.recovered),
             requireContext().getColor(R.color.deaths)
         )
 
-        chart_overview.data = data
+        chart_overview.data = chartData
         chart_overview.holeRadius = 70f
         chart_overview.description.isEnabled = false
         chart_overview.legend.isEnabled = false

@@ -94,10 +94,10 @@ class ProvinceFragment : Fragment() {
                     progress_bar.visibility = View.VISIBLE
                 }
                 State.SUCCESS -> {
-                    val chartList = dataState.data?.take(5)
+                    val list = dataState.data
+                    val chartList = list?.take(5)
                     initChart(chartList!!)
 
-                    val list = dataState.data
                     adapter.submitList(list)
 
                     swipe_refresh.isRefreshing = false

@@ -2,13 +2,6 @@ package com.homindolentrahar.moncovid.util
 
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
-import android.content.Context
-import android.graphics.Point
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
-import android.os.Build
-import android.view.Display
-import android.view.WindowManager
 import android.widget.TextView
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -29,22 +22,6 @@ object Constant {
     @SuppressLint("SimpleDateFormat")
     fun getDateFromTimestamp(timestamp: Long): String {
         return SimpleDateFormat("MMM dd, yyyy").format(Date(timestamp))
-    }
-
-    fun isNetworkAvailable(context: Context): Boolean {
-        val connectivityManager =
-            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val networkCapabilities =
-            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
-
-        return if (networkCapabilities != null) {
-            networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) || networkCapabilities.hasTransport(
-                NetworkCapabilities.TRANSPORT_CELLULAR
-            )
-        } else {
-            false
-
-        }
     }
 
     fun isInternetAvailable(): Single<Boolean> {
